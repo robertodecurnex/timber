@@ -1,4 +1,4 @@
-package timber.lint;
+package ptc.timber.lint;
 
 import com.android.tools.lint.client.api.IssueRegistry;
 import com.android.tools.lint.detector.api.ApiKt;

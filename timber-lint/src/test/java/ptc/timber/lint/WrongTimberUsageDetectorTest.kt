@@ -1,4 +1,4 @@
-package timber.lint
+package ptc.timber.lint
 
 import com.android.tools.lint.checks.infrastructure.TestFiles.java
 import com.android.tools.lint.checks.infrastructure.TestFiles.kotlin
@@ -6,6 +6,7 @@ import com.android.tools.lint.checks.infrastructure.TestFiles.kt
 import com.android.tools.lint.checks.infrastructure.TestFiles.manifest
 import com.android.tools.lint.checks.infrastructure.TestLintTask.lint
 import org.junit.Test
+import ptc.timber.lint.WrongTimberUsageDetector
 
 class WrongTimberUsageDetectorTest {
   private val TIMBER_STUB = kotlin("""

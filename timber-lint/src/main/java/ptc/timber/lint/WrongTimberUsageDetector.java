@@ -1,4 +1,4 @@
-package timber.lint;
+package ptc.timber.lint;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;

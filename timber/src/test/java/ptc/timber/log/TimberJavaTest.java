@@ -1,4 +1,4 @@
-package timber.log;
+package ptc.timber.log;
 
 import org.junit.Test;
 
