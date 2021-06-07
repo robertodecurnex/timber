@@ -8,7 +8,7 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.example.timber.R;
-import timber.log.Timber;
+import ptc.timber.log.Timber;
 
 import static android.widget.Toast.LENGTH_SHORT;
 

@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import timber.log.Timber;
+import ptc.timber.log.Timber;
 
 import static java.lang.String.format;
 
