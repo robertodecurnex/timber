@@ -1,4 +1,4 @@
-package timber.log
+package ptc.timber.log
 
 import android.os.Build
 import android.util.Log
