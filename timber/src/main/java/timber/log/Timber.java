@@ -2,6 +2,7 @@ package timber.log;
 
 import android.util.Log;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -86,6 +87,16 @@ public final class Timber {
     return TREE_OF_SOULS;
   }
 
+  public static Tree setLocale(Locale locale) {
+    List<Tree> forest = FOREST;
+    LOCALE = locale;
+    //noinspection ForLoopReplaceableByForEach
+    for (int i = 0, count = forest.size(); i < count; i++) {
+      forest.get(i).setLocale(LOCALE);
+    }
+    return TREE_OF_SOULS;
+  }
+
   /** Add a new logging tree. */
   public static void plant(Tree tree) {
     if (tree == null) {
@@ -93,6 +104,9 @@ public final class Timber {
     }
     if (tree == TREE_OF_SOULS) {
       throw new IllegalArgumentException("Cannot plant Timber into itself.");
+    }
+    if (LOCALE != null) {
+      tree.setLocale(LOCALE);
     }
     FOREST.add(tree);
   }
@@ -110,6 +124,8 @@ public final class Timber {
   }
 
   private static final List<Tree> FOREST = new CopyOnWriteArrayList<Tree>();
+
+  private static Locale LOCALE = null;
 
   /** A {@link Tree} that delegates to all planted trees in the {@linkplain #FOREST forest}. */
   private static final Tree TREE_OF_SOULS = new Tree() {
@@ -221,6 +237,7 @@ public final class Timber {
   /** A facade for handling logging calls. Install instances via {@link #plant Timber.plant()}. */
   public static abstract class Tree {
     private final ThreadLocal<String> explicitTag = new ThreadLocal<String>();
+    private Locale locale = null;
 
     String getTag() {
       String tag = explicitTag.get();
@@ -228,6 +245,14 @@ public final class Timber {
         explicitTag.remove();
       }
       return tag;
+    }
+
+    public void setLocale(Locale locale) {
+      this.locale = locale;
+    }
+
+    public Locale getLocale() {
+      return this.locale;
     }
 
     /** Log a verbose message with optional format args. */
@@ -309,7 +334,11 @@ public final class Timber {
         message = Log.getStackTraceString(t);
       } else {
         if (args.length > 0) {
-          message = String.format(message, args);
+          if (getLocale() == null) {
+            message = String.format(message, args);
+          } else {
+            message = String.format(getLocale(), message, args);
+          }
         }
         if (t != null) {
           message += "\n" + Log.getStackTraceString(t);
